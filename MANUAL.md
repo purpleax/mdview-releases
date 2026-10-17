@@ -17,16 +17,15 @@ mdview works offline, follows the macOS light and dark appearance, and needs mac
 6. [Editing](#editing)
 7. [Visual editing](#visual-editing)
 8. [Plain text and code](#plain-text-and-code)
-9. [Fastly VCL](#fastly-vcl)
-10. [PDFs](#pdfs)
-11. [Asking AI](#asking-ai)
-12. [Working with files](#working-with-files)
-13. [Reading comfort](#reading-comfort)
-14. [Keyboard shortcuts](#keyboard-shortcuts)
-15. [What mdview remembers](#what-mdview-remembers)
-16. [Privacy and safety](#privacy-and-safety)
-17. [Troubleshooting](#troubleshooting)
-18. [Limits](#limits)
+9. [PDFs](#pdfs)
+10. [Asking AI](#asking-ai)
+11. [Working with files](#working-with-files)
+12. [Reading comfort](#reading-comfort)
+13. [Keyboard shortcuts](#keyboard-shortcuts)
+14. [What mdview remembers](#what-mdview-remembers)
+15. [Privacy and safety](#privacy-and-safety)
+16. [Troubleshooting](#troubleshooting)
+17. [Limits](#limits)
 
 ## Installing mdview
 
@@ -66,7 +65,7 @@ Ways to open a file:
 - **File › Open…** (⌘O), or **File › Open Recent**.
 - **Links:** a link in a Markdown document to another local `.md`, `.json` or `.txt` file opens that file in mdview.
 
-When mdview starts with nothing to open, and when you click its Dock icon with no windows open, it opens a blank plain-text document, ready to type in. Before you type anything, the **Text | Markdown | JSON | VCL | PDF** switch at the bottom left of the window turns it into a Markdown document (with a live preview), a JSON document (with the tree) or a Fastly VCL document (with its outline) instead; the switch is there on any new, empty document and disappears once you start typing. **PDF** works a little differently, since a PDF can't be started from scratch: it shows a PDF you already have open, or, if none is open, asks you to choose one (which then takes the blank document's place). If you open a file while that blank document is still empty, the file takes its place, so you aren't left with an extra empty window.
+When mdview starts with nothing to open, and when you click its Dock icon with no windows open, it opens a blank plain-text document, ready to type in. Before you type anything, the **Text | Markdown | JSON | PDF** switch at the bottom left of the window turns it into a Markdown document (with a live preview) or a JSON document (with the tree) instead; the switch is there on any new, empty document and disappears once you start typing. **PDF** works a little differently, since a PDF can't be started from scratch: it shows a PDF you already have open, or, if none is open, asks you to choose one (which then takes the blank document's place). If you open a file while that blank document is still empty, the file takes its place, so you aren't left with an extra empty window.
 
 The switch is also on every other document (turn off **Always show the document type switch** in **mdview › Settings…** to show it only on new, empty documents). Clicking another type there changes the document you're looking at, keeping its text: a text file becomes Markdown with a preview, Markdown becomes plain text, and so on. A saved file keeps its name and extension, and opens as its usual type the next time; to keep the new type, save it under a matching name (for example `.md`). A PDF's switch shows PDF and can't change it.
 
@@ -93,7 +92,7 @@ The switch is also on every other document (turn off **Always show the document 
 
 Every window has three parts:
 
-- **The title bar and toolbar** at the top: next to the document's name, a small label shows its type (for example **Python**, **JavaScript** or **Shell** for code, or **Plain Text**, **Markdown**, **JSON**, **Fastly VCL** or **PDF**); the **Preview / Split / Source** control is in the middle and **ⓘ Document Info** on the right.
+- **The title bar and toolbar** at the top: next to the document's name, a small label shows its type (for example **Python**, **JavaScript** or **Shell** for code, **Fastly VCL**, or **Plain Text**, **Markdown**, **JSON** or **PDF**); the **Preview / Split / Source** control is in the middle and **ⓘ Document Info** on the right.
 - **The preview** (the rendered document or JSON tree), with its own bar of navigation controls.
 - **The source editor**, with line numbers and, below it, a status bar showing the caret position and a word count or the JSON check.
 
@@ -458,13 +457,43 @@ mdview is also a plain text editor. Anything that isn't Markdown or JSON (a Pyth
 
 Code is coloured as you'd expect from a programmer's editor: keywords in red, strings in dark blue, comments in grey, numbers and constants in blue, types in orange and function calls in purple (lighter shades in dark mode). mdview works out the language from the file's name (`.py`, `.swift`, `Makefile`, `Dockerfile`…) or, for a script with no extension, from its first line (`#!/bin/bash`, `#!/usr/bin/env python3`), which is picked up as soon as you type it. When Ask AI writes code into a new text document, it sets the language too.
 
-It knows Swift, Python, JavaScript, TypeScript, shell, Go, Rust, C, C++, Objective-C, Java, Kotlin, C#, Ruby, PHP, Lua, SQL, HTML, XML, CSS, SCSS, YAML, TOML, INI, Makefile, Dockerfile, diff and Fastly VCL (`.vcl` files open as their own document type: see [Fastly VCL](#fastly-vcl)).
+It knows Swift, Python, JavaScript, TypeScript, shell, Go, Rust, C, C++, Objective-C, Java, Kotlin, C#, Ruby, PHP, Lua, SQL, HTML, XML, CSS, SCSS, YAML, TOML, INI, Makefile, Dockerfile, diff and Fastly VCL.
 
-The language's name is shown at the right of the status bar. Click it (or use **Text › Language**) to pick another language, or **Plain Text** for no colouring; the choice lasts while the document is open. Comment / Uncomment uses the chosen language's comment marker.
+The language's name is shown at the right of the status bar. Click it (or use **Text › Language**) to pick another language, or **Plain Text** for no colouring; the choice lasts while the document is open. Everything below that depends on the language (comments, indentation, the outline, the checks and what Ask AI is told) follows the language chosen.
 
 Colouring works out of what it sees, without understanding the program, so an unusual construct can occasionally be coloured oddly. It only colours the part of the file on screen, so even very large files stay quick.
 
-**File › New Text Document** (⌥⇧⌘N) starts an empty plain-text document. When you save it, give it any name and extension: `notes.txt`, `backup.sh`, `Dockerfile`. If it is coloured as a language, Save suggests a name with that language's extension, such as `Untitled.py`.
+**File › New Code Document ▸** starts a new document in any of these languages, listed in groups (Web, Scripting, Apps and Systems, Data and Configuration, Build and Tools). It's set to that language straight away, so the colouring, outline, checks and indentation are ready before you type. Python, shell and Ruby scripts start with their `#!` line (for example `#!/usr/bin/env python3`), ready to run; the others start empty.
+
+**File › New Text Document** (⌥⇧⌘N) starts an empty plain-text document; choose a language in the status bar later if you like (or just start with a `#!` line). When you save it, give it any name and extension: `notes.txt`, `backup.sh`, `Dockerfile`. If it is coloured as a language, Save suggests a name with that language's extension, such as `Untitled.py` or `Untitled.vcl`.
+
+### The outline
+
+Code with a few functions, types or sections shows an outline on the left of the editor, in the order they appear in the file, with methods indented under their class. Click an entry to go to it. **View › Hide Outline** (⌃⌘S) hides it for all code documents, and **View › Show Outline** brings it back.
+
+What's listed depends on the language: functions, classes, structs, enums, protocols, interfaces and extensions for programming languages; `CREATE TABLE`, `VIEW`, `FUNCTION` and similar statements for SQL; headings for HTML; selectors and `@media` rules for CSS; top-level keys for YAML; `[sections]` for TOML and INI; targets for Makefiles; build stages for Dockerfiles; and the files changed in a diff. Fastly VCL has its own outline (see [Fastly VCL](#fastly-vcl)). Plain text and XML have no outline.
+
+### Checks
+
+As you type, mdview checks code for mistakes and marks them in the line numbers: a red dot for an error, an amber dot for a warning. The status bar shows how many there are, or **No problems found**, and the message for the line the cursor is on. **Format › Jump to Error** (⌘', or a click on the message) goes to the next one. Nothing is run: the code is only read.
+
+- **JavaScript, shell scripts, Ruby and XML** are checked by the parsers built into macOS, so any syntax error is found. Shell scripts are checked by the shell their `#!` line names (bash, zsh, sh or ksh).
+- **Python** is checked the same way when Python 3 is installed on the Mac (it comes with Apple's command line developer tools). Without it, Python gets the bracket checks below.
+- **Swift, TypeScript, Go, Rust, C, C++, Objective-C, Java, Kotlin, C#, PHP, Lua, SQL, CSS and SCSS** are checked for brackets — `( )`, `[ ]` and `{ }` — that don't match or are never closed, and for comments and strings that are never closed. That finds the most common slip, but not every mistake the language's own compiler would.
+- **Fastly VCL** has its own checks (see [Fastly VCL](#fastly-vcl)).
+
+Other languages (HTML, YAML, TOML, INI, Makefile, Dockerfile, diff, and JSX files) and plain text aren't checked; the status bar shows the word count instead.
+
+### Fastly VCL
+
+Fastly VCL files (`.vcl`), the configuration language of Fastly's CDN, open as code like any other language, with these extras. Everything works offline; mdview doesn't connect to Fastly.
+
+- **Colouring:** keywords, subroutine names, variables (`req.http.Host`, `beresp.ttl`, `client.geo.country_code`…), functions (`regsub()`, `table.lookup()`), long strings `{"…"}`, times such as `3600s`, and the `#FASTLY` lines each have their own colour.
+- **Outline:** the subroutines in the order Fastly runs them (`vcl_recv`, `vcl_hash`, `vcl_hit`, `vcl_miss`, `vcl_pass`, `vcl_fetch`, `vcl_error`, `vcl_deliver`, `vcl_log`), then your own subroutines, tables, ACLs, backends and directors. All nine are always listed, even in a new document; those the file doesn't define yet are dimmed.
+- **Checks:** braces that don't match; subroutine names starting `vcl_` that Fastly doesn't have; a lifecycle subroutine in a custom VCL file without its `#FASTLY` line (Fastly's generated VCL for it would be skipped); `beresp.` used outside `vcl_fetch`, `resp.` outside `vcl_deliver` and `vcl_log`, and `obj.ttl` outside `vcl_hit`; a time without a unit (`86400` instead of `86400s`); `req.request` (use `req.method`) and `return(purge)`, which Fastly doesn't have; `synthetic "…"` instead of `synthetic {"…"}`; and Vary set in `vcl_deliver` or replaced outright in `vcl_fetch`. These catch common mistakes; they aren't Fastly's compiler, so a file with no problems shown can still be rejected by Fastly.
+- **Ask AI** follows Fastly's rules, so you can ask *"explain what this does on a cache miss"* or *"redirect /old to /new"* and get Fastly-correct answers and edits.
+
+To start a new VCL file, choose **File › New Code Document › Fastly VCL**.
 
 ### Encodings and line endings
 
@@ -485,7 +514,7 @@ The status bar's **Spaces: 4** or **Tab Width: 4** (also **Text › Indentation*
 - **Indent Using Spaces** on: Tab inserts spaces; off: Tab inserts a tab character.
 - **Tab Width** (2, 3, 4 or 8): how many spaces a level of indentation is, and how wide tab characters look.
 
-With several lines selected, Tab indents them all and ⇧Tab outdents them. The settings are remembered separately for Markdown, JSON and plain text. Out of the box, Markdown uses 4 spaces, JSON 2 spaces and plain text tabs 4 wide.
+With several lines selected, Tab indents them all and ⇧Tab outdents them. The settings are remembered separately for Markdown, JSON, plain text and each code language. Out of the box, Markdown uses 4 spaces, JSON 2 spaces and plain text tabs 4 wide, and code follows its language's usual style: 4 spaces for Python, Swift, Rust, Java, C and most others; 2 spaces for JavaScript, TypeScript, Ruby, shell, Lua, YAML, HTML, XML, CSS and Fastly VCL; and tabs for Go and Makefiles (where they're required).
 
 ### Line commands
 
@@ -513,52 +542,6 @@ These settings apply to every window and are remembered.
 ### Making mdview your text editor
 
 mdview appears in **Open With** for every text file, but never makes itself the default. To use it for a kind of file, select one such file in Finder, press ⌘I, choose **mdview** under **Open with**, and click **Change All…**.
-
-## Fastly VCL
-
-Fastly VCL files (`.vcl`), the configuration language of Fastly's CDN, are a document type of their own: an editor with VCL colouring, an outline of the file, and checks for common mistakes. Everything works offline; mdview doesn't connect to Fastly.
-
-### Opening and creating VCL
-
-- `.vcl` files open as VCL (mdview is offered in **Open With** for them).
-- **File › New VCL Document** (or **VCL › New VCL Document**) starts an empty VCL document.
-- **VCL › New Snippet ▸** starts a snippet for one subroutine (`vcl_recv`, `vcl_fetch`…, or `init` for code outside subroutines). Its first line names the type.
-- A new, empty document can be switched to VCL with **VCL** in the status bar's type switch.
-
-VCL documents use 2-space indentation by default; the status bar changes it, as for other documents.
-
-### The outline
-
-The outline on the left lists the file's subroutines in the order Fastly runs them (`vcl_recv`, `vcl_hash`, `vcl_hit`, `vcl_miss`, `vcl_pass`, `vcl_fetch`, `vcl_error`, `vcl_deliver`, `vcl_log`), then your own subroutines, tables, ACLs, backends and directors. All nine are always listed, even in a new document; those the file doesn't define yet are shown dimmed. Click an entry to go to it. **View › Hide Outline** (⌃⌘S) hides it for all VCL documents.
-
-### Colouring
-
-Keywords (`sub`, `if`, `set`, `return`, `table`…), subroutine names, variables (`req.http.Host`, `beresp.ttl`, `client.geo.country_code`…), functions (`regsub()`, `table.lookup()`), strings including long strings `{"…"}`, times such as `3600s`, comments (`#`, `//`, `/* */`) and the `#FASTLY` lines each have their own colour.
-
-### Checks
-
-As you type, mdview checks for common mistakes and marks them in the line numbers: a red dot for an error, an amber dot for a warning. The status bar shows how many there are, and the message for the line the cursor is on. **VCL › Next Problem** (or ⌘', or a click on the message) goes to the next one.
-
-It checks for:
-
-- braces that don't match;
-- subroutine names starting `vcl_` that Fastly doesn't have;
-- a lifecycle subroutine in a custom VCL file without its `#FASTLY` line (Fastly's generated VCL for it would be skipped);
-- `beresp.` used outside `vcl_fetch`, `resp.` outside `vcl_deliver` and `vcl_log`, and `obj.ttl` outside `vcl_hit`;
-- a time without a unit (`set beresp.ttl = 86400;` instead of `86400s`);
-- `req.request` (use `req.method`) and `return(purge)`, which Fastly doesn't have;
-- `synthetic "…"` instead of `synthetic {"…"}`;
-- Vary set in `vcl_deliver`, or replaced outright in `vcl_fetch`.
-
-These catch common mistakes; they aren't Fastly's compiler, so a file with no problems shown can still be rejected by Fastly.
-
-### Snippets
-
-**VCL › Insert Snippet ▸** puts a ready-made recipe at the cursor, as one undo step: redirects from a table, a cache-status header (HIT / MISS / PASS), appending to Vary, serving stale content, detecting grace, not caching a path, setting a TTL, not caching responses that set cookies, CORS headers, blocking countries, allowing only an ACL, reading a cookie, forcing HTTPS, a synthetic response and removing response headers. Each starts with a comment saying which subroutine its parts belong in.
-
-### Asking AI about VCL
-
-With a VCL document open, Ask AI (⌥⌘K) is told it's Fastly VCL and follows Fastly's rules, so you can ask *"explain what this does on a cache miss"* or *"redirect /old to /new"* and get Fastly-correct answers and edits.
 
 ## PDFs
 
@@ -682,6 +665,7 @@ Ask for any change in plain words (*"fix the spelling"*, *"rewrite the introduct
 - Each set of changes is one step in **Edit › Undo** ("Undo Claude's Edits" or "Undo GPT's Edits"), so you can step back through them. Nothing is saved until mdview saves the document as usual.
 - The document changes only when you ask for a change; questions just get answers.
 - When the model writes code into a plain-text document (*"write a Python script that…"*), it also sets the colouring language, so the script is coloured straight away and Save suggests a name like `Untitled.py`.
+- With code open, the model is told the language and its usual conventions (PEP 8 for Python, gofmt for Go, Fastly's rules for VCL and so on), so its answers and edits match.
 
 PDFs and read-only documents (such as this manual) can't be changed; the model gives the new text in its answer instead.
 
@@ -835,14 +819,14 @@ mdview follows the macOS light or dark setting. To choose for mdview alone, use 
 | ⇧⌘K | Inline Code (Markdown) |
 | ⌘K | Link… (Markdown) |
 | ⌥⇧⌘F | Format JSON |
-| ⌘' | Jump to Error (JSON), Next Problem (VCL) |
+| ⌘' | Jump to Error (JSON, or the next problem in code) |
 
 ### View
 
 | Shortcut | Command |
 | --- | --- |
 | ⌘1 / ⌘2 / ⌘3 / ⌘4 | Preview / Split / Source / Visual |
-| ⌃⌘S | Toggle Sidebar (Hide / Show Outline for VCL) |
+| ⌃⌘S | Toggle Sidebar (Hide / Show Outline for code) |
 | ⌥⌘L | Hide or Show Document List |
 | ⌥⌘T | Show or Hide Toolbar |
 | ⌘0 | Actual Size |
@@ -930,7 +914,8 @@ mdview keeps these between launches:
 - Whether the sidebar is shown, and whether a JSON sidebar shows Outline or Endpoints
 - Each PDF markup tool's colour, line width and text size
 - Whether the document list is hidden, and its width
-- Whether VCL documents show the outline
+- Whether code documents show the outline
+- The indentation for Markdown, JSON, plain text and each code language
 - Whether the document type switch is always shown
 - Whether the Ask AI panel is shown, and its width; the provider, each provider's model, and the effort (the API keys are in your keychain)
 - Which documents were open in each window (when macOS reopens windows)
@@ -1009,5 +994,5 @@ Saved versions of your documents are kept by macOS with the files themselves, no
 - HTML outside the safe list (scripts, styles, frames, forms, embedded media) isn't shown.
 - PDFs: mdview adds and changes marks (annotations), not the PDF's own text, images or pages, and doesn't redact (a box drawn over text leaves the text in the file). Form filling and page editing aren't available yet.
 - JSON must be standard JSON: comments and trailing commas are reported as errors.
-- VCL checks catch common mistakes, not everything Fastly's compiler would reject.
+- Code checks for most languages only match brackets, and the VCL checks catch common mistakes, so neither finds everything the language's own compiler would reject.
 - mdview runs on macOS 14 or later on Apple Silicon Macs.
