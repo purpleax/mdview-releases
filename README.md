@@ -6,6 +6,8 @@ Downloads of **mdview**, a small native Mac app for reading and editing Markdown
 
 Requires macOS 14 or later on an Apple Silicon Mac.
 
+**[User manual](MANUAL.md)**: every feature, keyboard shortcuts, settings and troubleshooting. The same manual is in the app under **Help › mdview Manual**.
+
 To update, choose **mdview › Check for Updates…** in the app, or download the new version and replace the old one. Your settings are kept.
 
-This repository holds releases only.
+Each [release](https://github.com/purpleax/mdview-releases/releases) lists what's new in that version.
