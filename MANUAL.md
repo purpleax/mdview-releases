@@ -64,7 +64,7 @@ Ways to open a file:
 - **Finder:** right-click the file and choose **Open With › mdview**.
 - **Drag and drop:** drop a file onto mdview's Dock icon or onto any mdview window.
 - **File › Open…** (⌘O), or **File › Open Recent**.
-- **Links:** a link in a Markdown document to another local `.md`, `.json` or `.txt` file opens that file in mdview.
+- **Links:** a link in a Markdown or HTML document to another local file that mdview opens (Markdown, HTML, JSON, text, PDF or code) opens that file in mdview.
 
 When mdview starts with nothing to open, and when you click its Dock icon with no windows open, it opens a blank plain-text document, ready to type in. Before you type anything, the **Text | Markdown | HTML | JSON | PDF** switch at the bottom left of the window turns it into a Markdown document (with a live preview), an HTML page (with the page beside its source) or a JSON document (with the tree) instead; the switch is there on any new, empty document and disappears once you start typing. **PDF** works a little differently, since a PDF can't be started from scratch: it shows a PDF you already have open, or, if none is open, asks you to choose one (which then takes the blank document's place). If you open a file while that blank document is still empty, the file takes its place, so you aren't left with an extra empty window.
 
@@ -130,8 +130,8 @@ mdview renders GitHub-Flavoured Markdown, the variant used on GitHub, with the s
 | --- | --- |
 | `#a-heading` in the same document | Scrolls to that heading (and is recorded for Back) |
 | `https://…`, `http://…`, `mailto:…` | Opens in your default browser or mail app |
-| A relative link to a `.md`, `.json` or `.txt` file | Opens that file in mdview |
-| A relative link to any other file | Opens it in its default app |
+| A relative link to a Markdown, HTML, JSON, text, PDF or code file | Opens that file in mdview |
+| A relative link to any other file or folder | Shows it in Finder, without opening it, so a document can't launch an app or script |
 | A relative link to a file that doesn't exist | Beeps |
 
 Headings get the same anchors as on GitHub: lower-case, punctuation removed, spaces turned into hyphens, and `-1`, `-2` added to repeated headings. So `## Install & Run` is `#install--run`.
@@ -458,7 +458,8 @@ HTML files (`.html`, `.htm`, `.xhtml`) open as web pages you can read and edit, 
 
 The page is shown as a browser would show it, with its own styles, images, fonts and media from the file's folder (and from the web). Its **JavaScript never runs**, so nothing in a page can act on your Mac; parts that a page builds with JavaScript don't appear.
 
-- Links open in your browser, or, for a local file mdview can open, in mdview.
+- Links open in your browser, or, for a local file mdview can open, in mdview. Links to other local files show them in Finder.
+- The page stays put: a refresh tag can't replace it with another page, and frames don't load other sites or files.
 - Double-click the page (in Preview) to go to that place in the source.
 - In Split, the page and the source scroll together.
 - The outline on the left lists the page's headings; click one to go to it, and **View › Hide Outline** (⌃⌘S) hides it.
@@ -978,7 +979,7 @@ Saved versions of your documents are kept by macOS with the files themselves, no
 
 - **mdview works offline.** Highlighting, diagrams and maths are built in. The app itself connects to the internet only for Ask AI, when you ask a question, and for **Check for Updates…**, when you choose it (it asks GitHub for the latest version; nothing about you or your documents is sent); otherwise the only network traffic is loading images that a document links to on the web, which happens only when the document is shown.
 - **Ask AI sends only what you ask about.** When you ask a question, the shown document and the conversation go to the provider you chose, Anthropic (api.anthropic.com) or OpenAI (api.openai.com), with your API key for it, under that provider's terms for API use; OpenAI is asked not to store it. Your keys are kept in the keychain and each is sent only to its own provider. Answers are shown without scripts, styles or remote images, and the model can change the open document only through mdview's editing tools, as undoable edits.
-- **Documents can't run code.** HTML inside Markdown is checked against a list of harmless tags; scripts, event handlers, styles, frames and forms are removed before anything is shown. HTML pages are shown with their JavaScript switched off, and their links open in your browser rather than in the page. JSON is always shown as plain text.
+- **Documents can't run code.** HTML inside Markdown is checked against a list of harmless tags; scripts, event handlers, styles, frames and forms are removed before anything is shown. HTML pages are shown with their JavaScript switched off, and their links open in your browser rather than in the page; a page can't redirect itself to another site or frame one. A link never launches an app or script: links to files mdview doesn't open show them in Finder. JSON is always shown as plain text.
 - **Local images stay local.** Images with relative paths can only be loaded from image files, relative to the document.
 - **Your files are only changed when you edit them.** Opening and reading a file (including a PDF) never modifies it; a PDF is rewritten only after you mark it up.
 
@@ -1032,7 +1033,7 @@ Saved versions of your documents are kept by macOS with the files themselves, no
 - Code colouring recognises the languages listed under [Code colouring](#code-colouring); other files are shown uncoloured. A comment or string that starts more than about 40,000 characters above the part on screen may be coloured as code.
 - Visual mode doesn't edit diagrams, formulas, raw HTML, front matter or footnotes in place (each opens its source instead), and it isn't available for JSON.
 - HTML outside the safe list (scripts, styles, frames, forms, embedded media) isn't shown in Markdown.
-- HTML pages: JavaScript never runs, so parts of a page built by scripts don't appear. A page whose tags the browser has to rearrange can't be edited visually (edit its source instead). Media, frames, form controls, SVG and maths aren't edited in place, and Find searches the source.
+- HTML pages: JavaScript never runs, so parts of a page built by scripts don't appear. A page whose tags the browser has to rearrange can't be edited visually (edit its source instead). Frames don't load other sites or files. Media, frames, form controls, SVG and maths aren't edited in place, and Find searches the source.
 - PDFs: mdview adds and changes marks (annotations), not the PDF's own text, images or pages, and doesn't redact (a box drawn over text leaves the text in the file). Form filling and page editing aren't available yet.
 - JSON must be standard JSON: comments and trailing commas are reported as errors.
 - Code checks for most languages only match brackets, and the VCL checks catch common mistakes, so neither finds everything the language's own compiler would reject.
