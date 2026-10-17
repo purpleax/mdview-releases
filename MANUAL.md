@@ -1,6 +1,6 @@
 # mdview Manual
 
-mdview is a small native Mac app for reading and editing Markdown and JSON files, a plain text editor for everything else, and a PDF reader where you can highlight and annotate. Markdown appears as a clean, readable document; JSON appears as a collapsible, colour-coded tree that stays fast on multi-megabyte files. Either kind of file can be edited in a native Mac text editor next to a live preview, and Markdown can also be edited visually, like a word-processor document, with mdview writing the Markdown for you.
+mdview is a small native Mac app for reading and editing Markdown, HTML and JSON files, a plain text editor for everything else, and a PDF reader where you can highlight and annotate. Markdown appears as a clean, readable document; HTML as the web page it describes; JSON as a collapsible, colour-coded tree that stays fast on multi-megabyte files. Each can be edited in a native Mac text editor next to a live preview, and Markdown and HTML can also be edited visually, like a word-processor document, with mdview writing the source for you.
 
 mdview works offline, follows the macOS light and dark appearance, and needs macOS 14 or later on an Apple Silicon Mac. If you add a Claude or OpenAI API key, you can also ask an AI about the open document and have it make changes for you (see [Asking AI](#asking-ai)); that is the only feature that goes online.
 
@@ -16,16 +16,17 @@ mdview works offline, follows the macOS light and dark appearance, and needs mac
 5. [Exploring JSON](#exploring-json)
 6. [Editing](#editing)
 7. [Visual editing](#visual-editing)
-8. [Plain text and code](#plain-text-and-code)
-9. [PDFs](#pdfs)
-10. [Asking AI](#asking-ai)
-11. [Working with files](#working-with-files)
-12. [Reading comfort](#reading-comfort)
-13. [Keyboard shortcuts](#keyboard-shortcuts)
-14. [What mdview remembers](#what-mdview-remembers)
-15. [Privacy and safety](#privacy-and-safety)
-16. [Troubleshooting](#troubleshooting)
-17. [Limits](#limits)
+8. [HTML pages](#html-pages)
+9. [Plain text and code](#plain-text-and-code)
+10. [PDFs](#pdfs)
+11. [Asking AI](#asking-ai)
+12. [Working with files](#working-with-files)
+13. [Reading comfort](#reading-comfort)
+14. [Keyboard shortcuts](#keyboard-shortcuts)
+15. [What mdview remembers](#what-mdview-remembers)
+16. [Privacy and safety](#privacy-and-safety)
+17. [Troubleshooting](#troubleshooting)
+18. [Limits](#limits)
 
 ## Installing mdview
 
@@ -65,7 +66,7 @@ Ways to open a file:
 - **File › Open…** (⌘O), or **File › Open Recent**.
 - **Links:** a link in a Markdown document to another local `.md`, `.json` or `.txt` file opens that file in mdview.
 
-When mdview starts with nothing to open, and when you click its Dock icon with no windows open, it opens a blank plain-text document, ready to type in. Before you type anything, the **Text | Markdown | JSON | PDF** switch at the bottom left of the window turns it into a Markdown document (with a live preview) or a JSON document (with the tree) instead; the switch is there on any new, empty document and disappears once you start typing. **PDF** works a little differently, since a PDF can't be started from scratch: it shows a PDF you already have open, or, if none is open, asks you to choose one (which then takes the blank document's place). If you open a file while that blank document is still empty, the file takes its place, so you aren't left with an extra empty window.
+When mdview starts with nothing to open, and when you click its Dock icon with no windows open, it opens a blank plain-text document, ready to type in. Before you type anything, the **Text | Markdown | HTML | JSON | PDF** switch at the bottom left of the window turns it into a Markdown document (with a live preview), an HTML page (with the page beside its source) or a JSON document (with the tree) instead; the switch is there on any new, empty document and disappears once you start typing. **PDF** works a little differently, since a PDF can't be started from scratch: it shows a PDF you already have open, or, if none is open, asks you to choose one (which then takes the blank document's place). If you open a file while that blank document is still empty, the file takes its place, so you aren't left with an extra empty window.
 
 The switch is also on every other document (turn off **Always show the document type switch** in **mdview › Settings…** to show it only on new, empty documents). Clicking another type there changes the document you're looking at, keeping its text: a text file becomes Markdown with a preview, Markdown becomes plain text, and so on. A saved file keeps its name and extension, and opens as its usual type the next time; to keep the new type, save it under a matching name (for example `.md`). A PDF's switch shows PDF and can't change it.
 
@@ -81,7 +82,7 @@ The switch is also on every other document (turn off **Always show the document 
 
 **File › Close** (⌘W) closes the document you're looking at; the window closes with its last document. **File › Close Window** (⇧⌘W), or the window's close button, closes all its documents, saving each one's changes (an untitled document asks whether to save). Opening a file that is already open shows it.
 
-**New documents.** **File › New Markdown Document** (⌘N) and **File › New JSON Document** (⌥⌘N) open an untitled document ready for typing. See [Editing](#editing).
+**New documents.** **File › New Markdown Document** (⌘N), **File › New JSON Document** (⌥⌘N) and **File › New HTML Document** open an untitled document ready for typing. See [Editing](#editing).
 
 **Importing.** **File › Import…** converts an HTML page, a Word document (`.docx` or `.doc`), an RTF file or an OpenDocument text file (`.odt`) into a new, untitled Markdown document. See [Importing documents](#importing-documents).
 
@@ -302,7 +303,7 @@ Switch to **Split** (⌘2) or **Source** (⌘3) to edit. The editor is a standar
 
 - Line numbers run down the left. A long line that wraps is still numbered once.
 - The line with the caret is lightly tinted.
-- Markdown and JSON are colour-coded as you type, in colours that match the preview.
+- Markdown, HTML and JSON are colour-coded as you type.
 - Spell checking is on for Markdown and off for JSON.
 - Smart quotes and smart dashes are off, so what you type is exactly what is saved.
 
@@ -314,7 +315,7 @@ Changes appear in the preview a moment after you stop typing (a little longer fo
 
 mdview saves the way other Mac document apps do:
 
-- **File › Save…** (⌘S) saves; a new document asks for a name and folder. Markdown documents are saved as Markdown and JSON documents as JSON.
+- **File › Save…** (⌘S) saves; a new document asks for a name and folder. Markdown documents are saved as Markdown, HTML documents as HTML and JSON documents as JSON.
 - **Autosave:** your changes are saved automatically as you work, and a dot on the window's close button shows there are changes since you last chose Save.
 - **File › Revert To** goes back to the last saved version, or **Browse All Versions…** to pick an earlier one.
 - **File › Duplicate** (⇧⌘S), **Rename…** and **Move To…** work as usual; the window follows the file.
@@ -322,7 +323,7 @@ mdview saves the way other Mac document apps do:
 
 ### New documents
 
-**File › New Markdown Document** (⌘N) and **New JSON Document** (⌥⌘N) open in Split view. A new JSON document starts as an empty object with the caret inside it.
+**File › New Markdown Document** (⌘N), **New JSON Document** (⌥⌘N) and **New HTML Document** open in Split view. A new JSON document starts as an empty object with the caret inside it.
 
 ### Markdown editing aids
 
@@ -449,6 +450,45 @@ Formatted text pasted into Visual mode keeps its headings, bold, italic, links, 
 
 When you edit a paragraph, mdview writes that paragraph in a consistent style: `**bold**`, `*italic*`, `~~strike~~`, `#` headings and fenced code blocks. Lists keep their bullet (`-`, `*` or `+`), code blocks keep their fence, tables keep their alignment row, and links keep using a `[label]: address` definition when the document has one. Characters that would otherwise be read as Markdown, such as a `*` or `_` that isn't emphasis, get a backslash. A line break typed with ⇧Return is written as a backslash at the end of the line. Inline HTML in an edited paragraph is kept for tags such as `<kbd>`, `<sub>`, `<sup>` and `<mark>`; HTML that mdview doesn't show (scripts, styles, event handlers) is dropped from that paragraph.
 
+## HTML pages
+
+HTML files (`.html`, `.htm`, `.xhtml`) open as web pages you can read and edit, with the same views as Markdown: **Preview** (⌘1) shows the page, **Split** (⌘2) puts the HTML source beside it, **Source** (⌘3) shows just the source, and **Visual** (⌘4) lets you edit the page itself. **File › New HTML Document** starts an empty one, and **HTML** in the status bar's type switch turns another document into one.
+
+### Showing the page
+
+The page is shown as a browser would show it, with its own styles, images, fonts and media from the file's folder (and from the web). Its **JavaScript never runs**, so nothing in a page can act on your Mac; parts that a page builds with JavaScript don't appear.
+
+- Links open in your browser, or, for a local file mdview can open, in mdview.
+- Double-click the page (in Preview) to go to that place in the source.
+- In Split, the page and the source scroll together.
+- The outline on the left lists the page's headings; click one to go to it, and **View › Hide Outline** (⌃⌘S) hides it.
+
+### Editing the page
+
+In Visual mode and in Split, click into the page and type; clicking below the content puts the cursor at the end. Return starts a new paragraph, or a new item in a list. The formatting bar above the page has:
+
+- the paragraph style: Paragraph, Heading 1–6, Quote or Code Block;
+- **Bold** (⌘B), **Italic** (⌘I), **Strikethrough** (⇧⌘X), **Inline Code** (⇧⌘K) and **Link** (⌘K), which asks for the address (leave it empty to remove a link);
+- bulleted and numbered lists, **Outdent** and **Indent**, and a horizontal rule;
+- **Table**: insert a table, add a row above or below or a column left or right, and delete a row, a column or the table.
+
+Formatted text pasted from a web page, Word or Pages keeps its headings, emphasis, links, lists and tables, without its styles, scripts and other clutter. **Edit › Paste and Match Style** (⌥⇧⌘V) pastes plain text. Undo (⌘Z) covers changes made in the page and in the source.
+
+### What changes in the source
+
+Only what you edit is rewritten. When you change a paragraph, mdview writes back just that element: everything else (the other elements, indentation, comments, the head, scripts and styles) keeps its exact text. Within an edited element, character references such as `&rsquo;` may be written as the characters themselves.
+
+Embedded media, frames, form controls, SVG and maths aren't edited in place; change them in the source.
+
+Before a page can be edited, mdview checks that it can write the untouched page back exactly as it is. A page with tags the browser has to rearrange (for example `<b>` and `<i>` closed in the wrong order) can't be, so it's shown in Preview and Split but not edited in place: the status bar says so, and you edit it in the source instead.
+
+### Other things to know
+
+- **Edit › Find** (⌘F) searches the source, switching to Split if needed.
+- **File › Print** and **File › Export as PDF…** print the page as it's shown.
+- **File › Import…** still turns an HTML file into a new Markdown document, if that's what you want.
+- Ask AI knows it's an HTML page and keeps it valid HTML when it makes changes.
+
 ## Plain text and code
 
 mdview is also a plain text editor. Anything that isn't Markdown or JSON (a Python script, a shell script, a `.yaml` or `.conf` file, a log, a `.txt`, a `Makefile` or any other file with no extension) opens as **plain text**: just the editor, with no preview, so the view buttons other than Source are greyed out. Return keeps the current line's indentation.
@@ -457,7 +497,7 @@ mdview is also a plain text editor. Anything that isn't Markdown or JSON (a Pyth
 
 Code is coloured as you'd expect from a programmer's editor: keywords in red, strings in dark blue, comments in grey, numbers and constants in blue, types in orange and function calls in purple (lighter shades in dark mode). mdview works out the language from the file's name (`.py`, `.swift`, `Makefile`, `Dockerfile`…) or, for a script with no extension, from its first line (`#!/bin/bash`, `#!/usr/bin/env python3`), which is picked up as soon as you type it. When Ask AI writes code into a new text document, it sets the language too.
 
-It knows Swift, Python, JavaScript, TypeScript, shell, Go, Rust, C, C++, Objective-C, Java, Kotlin, C#, Ruby, PHP, Lua, SQL, HTML, XML, CSS, SCSS, YAML, TOML, INI, Makefile, Dockerfile, diff and Fastly VCL.
+It knows Swift, Python, JavaScript, TypeScript, shell, Go, Rust, C, C++, Objective-C, Java, Kotlin, C#, Ruby, PHP, Lua, SQL, HTML, XML, CSS, SCSS, YAML, TOML, INI, Makefile, Dockerfile, diff and Fastly VCL. (HTML files open as web pages, with their source coloured as HTML: see [HTML pages](#html-pages).)
 
 The language's name is shown at the right of the status bar. Click it (or use **Text › Language**) to pick another language, or **Plain Text** for no colouring; the choice lasts while the document is open. Everything below that depends on the language (comments, indentation, the outline, the checks and what Ask AI is told) follows the language chosen.
 
@@ -471,7 +511,7 @@ Colouring works out of what it sees, without understanding the program, so an un
 
 Code with a few functions, types or sections shows an outline on the left of the editor, in the order they appear in the file, with methods indented under their class. Click an entry to go to it. **View › Hide Outline** (⌃⌘S) hides it for all code documents, and **View › Show Outline** brings it back.
 
-What's listed depends on the language: functions, classes, structs, enums, protocols, interfaces and extensions for programming languages; `CREATE TABLE`, `VIEW`, `FUNCTION` and similar statements for SQL; headings for HTML; selectors and `@media` rules for CSS; top-level keys for YAML; `[sections]` for TOML and INI; targets for Makefiles; build stages for Dockerfiles; and the files changed in a diff. Fastly VCL has its own outline (see [Fastly VCL](#fastly-vcl)). Plain text and XML have no outline.
+What's listed depends on the language: functions, classes, structs, enums, protocols, interfaces and extensions for programming languages; `CREATE TABLE`, `VIEW`, `FUNCTION` and similar statements for SQL; selectors and `@media` rules for CSS; top-level keys for YAML; `[sections]` for TOML and INI; targets for Makefiles; build stages for Dockerfiles; and the files changed in a diff. Fastly VCL has its own outline (see [Fastly VCL](#fastly-vcl)). Plain text and XML have no outline.
 
 ### Checks
 
@@ -482,7 +522,7 @@ As you type, mdview checks code for mistakes and marks them in the line numbers:
 - **Swift, TypeScript, Go, Rust, C, C++, Objective-C, Java, Kotlin, C#, PHP, Lua, SQL, CSS and SCSS** are checked for brackets — `( )`, `[ ]` and `{ }` — that don't match or are never closed, and for comments and strings that are never closed. That finds the most common slip, but not every mistake the language's own compiler would.
 - **Fastly VCL** has its own checks (see [Fastly VCL](#fastly-vcl)).
 
-Other languages (HTML, YAML, TOML, INI, Makefile, Dockerfile, diff, and JSX files) and plain text aren't checked; the status bar shows the word count instead.
+Other languages (YAML, TOML, INI, Makefile, Dockerfile, diff, and JSX files) and plain text aren't checked; the status bar shows the word count instead.
 
 ### Fastly VCL
 
@@ -648,7 +688,7 @@ In Settings you can also choose:
 The answer appears as it's written, formatted like a Markdown document. While it's being written, the send button becomes a stop button (or press Esc). Under each answer:
 
 - **Copy** copies the answer's Markdown.
-- **Insert** puts the answer into the document at the cursor (Markdown, JSON and text documents), switching to Split view so you can see it. Edit › Undo removes it.
+- **Insert** puts the answer into the document at the cursor (Markdown, HTML, JSON and text documents), switching to Split view so you can see it. Edit › Undo removes it.
 - **Try Again** appears if the last question failed or was stopped.
 - The model that answered is shown on the right.
 
@@ -910,7 +950,7 @@ mdview follows the macOS light or dark setting. To choose for mdview alone, use 
 mdview keeps these between launches:
 
 - Your appearance choice, background tint, text size and Wide Layout
-- The last view (Preview, Split or Source) for Markdown and for JSON
+- The last view (Preview, Split, Source or Visual) for Markdown, HTML and JSON
 - Whether the sidebar is shown, and whether a JSON sidebar shows Outline or Endpoints
 - Each PDF markup tool's colour, line width and text size
 - Whether the document list is hidden, and its width
@@ -938,7 +978,7 @@ Saved versions of your documents are kept by macOS with the files themselves, no
 
 - **mdview works offline.** Highlighting, diagrams and maths are built in. The app itself connects to the internet only for Ask AI, when you ask a question, and for **Check for Updates…**, when you choose it (it asks GitHub for the latest version; nothing about you or your documents is sent); otherwise the only network traffic is loading images that a document links to on the web, which happens only when the document is shown.
 - **Ask AI sends only what you ask about.** When you ask a question, the shown document and the conversation go to the provider you chose, Anthropic (api.anthropic.com) or OpenAI (api.openai.com), with your API key for it, under that provider's terms for API use; OpenAI is asked not to store it. Your keys are kept in the keychain and each is sent only to its own provider. Answers are shown without scripts, styles or remote images, and the model can change the open document only through mdview's editing tools, as undoable edits.
-- **Documents can't run code.** HTML inside Markdown is checked against a list of harmless tags; scripts, event handlers, styles, frames and forms are removed before anything is shown. JSON is always shown as plain text.
+- **Documents can't run code.** HTML inside Markdown is checked against a list of harmless tags; scripts, event handlers, styles, frames and forms are removed before anything is shown. HTML pages are shown with their JavaScript switched off, and their links open in your browser rather than in the page. JSON is always shown as plain text.
 - **Local images stay local.** Images with relative paths can only be loaded from image files, relative to the document.
 - **Your files are only changed when you edit them.** Opening and reading a file (including a PDF) never modifies it; a PDF is rewritten only after you mark it up.
 
@@ -991,7 +1031,8 @@ Saved versions of your documents are kept by macOS with the files themselves, no
 - Find doesn't support regular expressions or searching several files yet.
 - Code colouring recognises the languages listed under [Code colouring](#code-colouring); other files are shown uncoloured. A comment or string that starts more than about 40,000 characters above the part on screen may be coloured as code.
 - Visual mode doesn't edit diagrams, formulas, raw HTML, front matter or footnotes in place (each opens its source instead), and it isn't available for JSON.
-- HTML outside the safe list (scripts, styles, frames, forms, embedded media) isn't shown.
+- HTML outside the safe list (scripts, styles, frames, forms, embedded media) isn't shown in Markdown.
+- HTML pages: JavaScript never runs, so parts of a page built by scripts don't appear. A page whose tags the browser has to rearrange can't be edited visually (edit its source instead). Media, frames, form controls, SVG and maths aren't edited in place, and Find searches the source.
 - PDFs: mdview adds and changes marks (annotations), not the PDF's own text, images or pages, and doesn't redact (a box drawn over text leaves the text in the file). Form filling and page editing aren't available yet.
 - JSON must be standard JSON: comments and trailing commas are reported as errors.
 - Code checks for most languages only match brackets, and the VCL checks catch common mistakes, so neither finds everything the language's own compiler would reject.
