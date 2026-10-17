@@ -102,7 +102,7 @@ The switch is also on every other document (turn off **Always show the document 
 
 Every window has three parts:
 
-- **The toolbar** at the top, with the **Preview / Split / Source** control in the middle and **ⓘ Document Info** on the right.
+- **The title bar and toolbar** at the top: next to the document's name, a small label shows its type (for example **Python**, **JavaScript** or **Shell** for code, or **Plain Text**, **Markdown**, **JSON**, **Fastly VCL** or **PDF**); the **Preview / Split / Source** control is in the middle and **ⓘ Document Info** on the right.
 - **The preview** (the rendered document or JSON tree), with its own bar of navigation controls.
 - **The source editor**, with line numbers and, below it, a status bar showing the caret position and a word count or the JSON check.
 
