@@ -36,20 +36,11 @@ mdview works offline, follows the macOS light and dark appearance, and needs mac
 2. Open it, and in the window that appears drag **mdview** onto the **Applications** folder.
 3. Eject the disk image, then open mdview from Applications.
 
-Releases signed and notarized by Apple open straight away. If a release isn't notarized (the release notes say so), macOS blocks the first launch with a message that it can't check the app. To allow it, do one of these:
-
-- Open **System Settings › Privacy & Security**, scroll down to the message about mdview, and click **Open Anyway**.
-- Or run this once in Terminal:
-
-  ```bash
-  xattr -d com.apple.quarantine /Applications/mdview.app
-  ```
-
-After that, mdview opens normally.
+mdview is signed and notarized by Apple, so it opens straight away.
 
 ### Updating
 
-Choose **mdview › Check for Updates…**. mdview asks GitHub whether there's a newer version: if there is, it shows what's new, and **Download** downloads it in your browser. Open the downloaded file and drag mdview to Applications again, choosing **Replace**. Your settings, recent files and reading positions are kept. mdview checks only when you choose this command. A copy that isn't notarized needs allowing once, as above.
+Choose **mdview › Check for Updates…**. mdview asks GitHub whether there's a newer version: if there is, it shows what's new, and **Download** downloads it in your browser. Open the downloaded file and drag mdview to Applications again, choosing **Replace**. Your settings, recent files and reading positions are kept. mdview checks only when you choose this command.
 
 ### Quick Look previews
 
@@ -967,8 +958,6 @@ Saved versions of your documents are kept by macOS with the files themselves, no
 - **Your files are only changed when you edit them.** Opening and reading a file (including a PDF) never modifies it; a PDF is rewritten only after you mark it up.
 
 ## Troubleshooting
-
-**macOS says mdview can't be opened or checked.** Releases from 3.3.1 on are signed and notarized by Apple and open straight away; this happens with 3.3.0 and earlier. Open **System Settings › Privacy & Security** and click **Open Anyway**, or run `xattr -d com.apple.quarantine /Applications/mdview.app`. See [Installing mdview](#installing-mdview).
 
 **"Apple could not verify … is free of malware" when you double-click a downloaded file.** This is macOS, not mdview: it checks downloaded files more strictly when that one file has been set to open with a different app. Make mdview the default for the whole type instead: select the file, press ⌘I, choose **mdview** under **Open with**, and click **Change All…**. You can also open the file from mdview with **File › Open** (⌘O), or remove the "downloaded" mark from a file you trust with `xattr -d com.apple.quarantine` followed by the file's path in Terminal.
 
