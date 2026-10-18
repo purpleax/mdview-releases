@@ -140,9 +140,9 @@ Headings get the same anchors as on GitHub: lower-case, punctuation removed, spa
 
 ### Finding text
 
-Press ⌘F while the preview has the focus to open the find bar. Every match is highlighted and the bar shows *n / total*. Press Return or ⌘G for the next match, ⇧Return or ⇧⌘G for the previous one, and Esc (or **Done**) to close the bar. The search ignores case.
+Press ⌘F while the preview has the focus to open the find bar. Every match is highlighted and the bar shows *n / total*. Press Return or ⌘G for the next match, ⇧Return or ⇧⌘G for the previous one, and Esc (or **Done**) to close the bar. The search ignores case unless you tick **Match Case**; **Whole Words** skips matches inside longer words.
 
-When the editor has the focus, ⌘F opens the editor's own find bar instead (see [Editing](#editing)).
+When the editor has the focus, ⌘F opens the editor's own find bar instead (see [Editing](#editing)). To replace text on the page, see [Finding and replacing](#finding-and-replacing).
 
 ### What Markdown can contain
 
@@ -442,6 +442,17 @@ Some parts of a document can't be edited as formatted text: Mermaid diagrams, ma
 
 Visual mode shares one undo history with the source editor: **Edit › Undo** (⌘Z) undoes your last change in either view. Saving, autosave, Versions and closing work as usual, and mdview always includes the very last characters you typed. Find (⌘F) searches the document.
 
+### Finding and replacing
+
+In Visual mode and Split, the page's find bar replaces text as well as finding it.
+
+- Press ⌥⌘F (**Edit › Find › Find and Replace…**) to open the find bar with its Replace row. In Preview, ⌥⌘F switches to Visual first. ⌘F opens the bar without the row; click **⇄** at its left to show it.
+- Type what to find and what to replace it with. **Replace** changes the current match and makes the next one current, **Replace & Find** also scrolls to it, and **All** changes every match. Return in the Replace field does Replace & Find.
+- **Match Case** finds only text with the same capitals; **Whole Words** skips matches inside longer words, so *cat* doesn't find *category*. Both are remembered.
+- Each Replace, and each All, is one step for **Edit › Undo** (⌘Z). The bar stays open when you undo, so you can carry on.
+- You find and replace the text you see on the page, so a match that runs across formatting (a word half in bold, say) isn't found. Matches in diagrams, formulas, raw HTML, front matter and footnotes can't be changed on the page: **All** says how many it left. Change those in Source (⌘3), whose own find bar (⌥⌘F) replaces in the Markdown itself.
+- As with typing, only the paragraphs, list items and table cells where something was replaced are rewritten in the source.
+
 ### Pasting
 
 Formatted text pasted into Visual mode keeps its headings, bold, italic, links, lists, tables and code, and becomes Markdown. Plain text pastes as text. **Edit › Paste and Match Style** (⌥⇧⌘V) pastes without formatting.
@@ -485,7 +496,7 @@ Before a page can be edited, mdview checks that it can write the untouched page 
 
 ### Other things to know
 
-- **Edit › Find** (⌘F) searches the source, switching to Split if needed.
+- **Edit › Find** (⌘F) opens a find bar over the page, with **Match Case** and **Whole Words**. In Visual mode and Split it replaces too: ⌥⌘F opens it with its Replace row (switching to Visual from Preview), and it works as described in [Finding and replacing](#finding-and-replacing). Text in form controls, media, SVG and maths isn't changed. When the source editor has the focus, ⌘F and ⌥⌘F search and replace in the HTML source instead.
 - **File › Print** and **File › Export as PDF…** print the page as it's shown.
 - **File › Import…** still turns an HTML file into a new Markdown document, if that's what you want.
 - Ask AI knows it's an HTML page and keeps it valid HTML when it makes changes.
@@ -841,7 +852,7 @@ mdview follows the macOS light or dark setting. To choose for mdview alone, use 
 | ⌥⇧⌘V | Paste and Match Style |
 | ⌘A | Select All |
 | ⌘F | Find (in the editor or the preview, whichever has the focus) |
-| ⌥⌘F | Find and Replace (editor) |
+| ⌥⌘F | Find and Replace (the editor, or the page in Visual mode and Split) |
 | ⌘G / ⇧⌘G | Find Next / Find Previous |
 | ⌘E | Use Selection for Find (editor) |
 | ⌘J | Jump to Selection (editor) |
