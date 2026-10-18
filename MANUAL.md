@@ -2,7 +2,7 @@
 
 mdview is a small native Mac app for reading and editing Markdown, HTML and JSON files, a plain text editor for everything else, and a PDF reader where you can highlight and annotate. Markdown appears as a clean, readable document; HTML as the web page it describes; JSON as a collapsible, colour-coded tree that stays fast on multi-megabyte files. Each can be edited in a native Mac text editor next to a live preview, and Markdown and HTML can also be edited visually, like a word-processor document, with mdview writing the source for you.
 
-mdview works offline, follows the macOS light and dark appearance, and needs macOS 14 or later on an Apple Silicon Mac. If you add a Claude or OpenAI API key, you can also ask an AI about the open document and have it make changes for you (see [Asking AI](#asking-ai)); that is the only feature that goes online.
+mdview works offline, follows the macOS light and dark appearance, and needs macOS 14 or later on an Apple Silicon Mac. If you add a Claude or OpenAI API key, you can also ask an AI about the open document and have it make changes for you (see [Asking AI](#asking-ai)). Apart from Ask AI, **Check for Updates…** and images a document links to on the web (which you can turn off), nothing goes online; see [Privacy and safety](#privacy-and-safety).
 
 > [!TIP]
 > This manual is a Markdown file shown in mdview itself, so everything it describes works here too. Use the contents sidebar on the left (⌃⌘S shows or hides it), or press ⌘F to search.
@@ -53,6 +53,7 @@ mdview opens:
 | Kind | Extensions | Shown as |
 | --- | --- | --- |
 | Markdown | `.md`, `.markdown`, `.mdown`, `.mkd` | A formatted document |
+| HTML | `.html`, `.htm`, `.xhtml` | The web page, without its JavaScript (see [HTML pages](#html-pages)) |
 | JSON | `.json` | A collapsible tree |
 | PDF | `.pdf` | The pages, with highlights and notes you add (see [PDFs](#pdfs)) |
 | Any other text | `.txt`, `.py`, `.sh`, `.yaml`, `.log`, `Makefile`, … | Plain text (editor only; see [Plain text and code](#plain-text-and-code)) |
@@ -93,8 +94,8 @@ The switch is also on every other document (turn off **Always show the document 
 
 Every window has three parts:
 
-- **The title bar and toolbar** at the top: next to the document's name, a small label shows its type (for example **Python**, **JavaScript** or **Shell** for code, **Fastly VCL**, or **Plain Text**, **Markdown**, **JSON** or **PDF**); the **Preview / Split / Source** control is in the middle and **ⓘ Document Info** on the right.
-- **The preview** (the rendered document or JSON tree), with its own bar of navigation controls.
+- **The title bar and toolbar** at the top: next to the document's name, a small label shows its type (for example **Python**, **JavaScript** or **Shell** for code, **Fastly VCL**, or **Plain Text**, **Markdown**, **JSON** or **PDF**); the **Preview / Split / Source / Visual** control is in the middle and **ⓘ Document Info** on the right.
+- **The preview** (the rendered document, HTML page or JSON tree), with its own bar of navigation controls.
 - **The source editor**, with line numbers and, below it, a status bar showing the caret position and a word count or the JSON check.
 
 The control in the toolbar (or the View menu) chooses which of these you see:
@@ -102,11 +103,11 @@ The control in the toolbar (or the View menu) chooses which of these you see:
 | View | Shortcut | Shows |
 | --- | --- | --- |
 | Preview | ⌘1 | Only the rendered document. Files open this way at first. |
-| Split | ⌘2 | The editor on the left and a live preview on the right, labelled **Markdown source** (or **JSON source**) and **Preview**. For Markdown, both sides can be edited: type in either and the other follows |
+| Split | ⌘2 | The editor on the left and a live preview on the right, labelled **Markdown source** (or **HTML source**, **JSON source**) and **Preview**. For Markdown and HTML, both sides can be edited: type in either and the other follows |
 | Source | ⌘3 | Only the editor |
-| Visual | ⌘4 | The formatted document, editable directly (Markdown only; see [Visual editing](#visual-editing)) |
+| Visual | ⌘4 | The formatted document, editable directly (Markdown and HTML; see [Visual editing](#visual-editing) and [HTML pages](#html-pages)) |
 
-mdview remembers the last view you chose, separately for Markdown and for JSON, and each window keeps its own view when macOS reopens it. Drag the divider in Split view to change the proportions.
+mdview remembers the last view you chose, separately for Markdown, HTML and JSON, and each window keeps its own view when macOS reopens it. Drag the divider in Split view to change the proportions.
 
 **Customizing the toolbar.** **View › Customize Toolbar…** lets you rearrange the items or add a **Format JSON** button. **View › Show Toolbar** (⌥⌘T) hides or shows the toolbar.
 
@@ -390,7 +391,7 @@ If the file is moved or deleted, a notice says so and the last version stays on 
 
 ## Visual editing
 
-Visual mode lets you edit a Markdown document the way you would in a word processor: you work on the formatted page, and mdview writes the Markdown. Choose **View › Visual** (⌘4) or the fourth button of the view control. Visual mode is for Markdown documents; it isn't available for JSON files or for this manual.
+Visual mode lets you edit a Markdown document the way you would in a word processor: you work on the formatted page, and mdview writes the Markdown. Choose **View › Visual** (⌘4) or the fourth button of the view control. Visual mode is for Markdown documents (HTML pages have their own; see [HTML pages](#html-pages)); it isn't available for JSON files or for this manual.
 
 Click anywhere in the text and type. Behind the scenes, every change goes straight into the Markdown source, so you can switch to Split (⌘2) at any time to see it, and keep editing visually there with the source alongside. **Only the parts you change are rewritten**: the rest of the file keeps its exact wording, spacing and style.
 
@@ -503,7 +504,7 @@ Before a page can be edited, mdview checks that it can write the untouched page 
 
 ## Plain text and code
 
-mdview is also a plain text editor. Anything that isn't Markdown or JSON (a Python script, a shell script, a `.yaml` or `.conf` file, a log, a `.txt`, a `Makefile` or any other file with no extension) opens as **plain text**: just the editor, with no preview, so the view buttons other than Source are greyed out. Return keeps the current line's indentation.
+mdview is also a plain text editor. Anything that isn't Markdown, HTML, JSON or a PDF (a Python script, a shell script, a `.yaml` or `.conf` file, a log, a `.txt`, a `Makefile` or any other file with no extension) opens as **plain text**: just the editor, with no preview, so the view buttons other than Source are greyed out. Return keeps the current line's indentation.
 
 ### Code colouring
 
@@ -772,7 +773,7 @@ Each file opens as a new, untitled Markdown document named after it. Save it whe
 
 **File › Open in *Editor*** (⇧⌘E) opens the file in another app, named in the menu (for example *Open in BBEdit*). Unsaved changes are saved first. mdview picks up the changes you make there when you save them.
 
-The app used is, in order: the one you picked with **File › Choose External Editor…**; otherwise the file's default app, unless that is mdview; otherwise another app that can open it; otherwise TextEdit. The choice is remembered separately for Markdown and for JSON.
+The app used is, in order: the one you picked with **File › Choose External Editor…**; otherwise the file's default app, unless that is mdview; otherwise another app that can open it; otherwise TextEdit. The choice is remembered separately for Markdown, for JSON, for PDFs and for other text files (HTML and code included).
 
 ### Show in Finder
 
@@ -784,7 +785,7 @@ The app used is, in order: the one you picked with **File › Choose External Ed
 
 ### Export as PDF
 
-**File › Export as PDF…** saves a paginated PDF of the document as it would print, without going through the Print dialog. It works for Markdown and for the JSON tree, which is exported as currently opened and closed.
+**File › Export as PDF…** saves a paginated PDF of the document as it would print, without going through the Print dialog. It works for Markdown, for HTML pages (as shown) and for the JSON tree, which is exported as currently opened and closed.
 
 Both exports suggest the document's own name and folder.
 
@@ -863,13 +864,13 @@ mdview follows the macOS light or dark setting. To choose for mdview alone, use 
 
 | Shortcut | Command |
 | --- | --- |
-| ⌘B | Bold (Markdown) |
-| ⌘I | Italic (Markdown) |
-| ⇧⌘X | Strikethrough (Markdown, or the selected text in a PDF) |
+| ⌘B | Bold (Markdown, HTML pages) |
+| ⌘I | Italic (Markdown, HTML pages) |
+| ⇧⌘X | Strikethrough (Markdown, HTML pages, or the selected text in a PDF) |
 | ⌃⌘H | Highlight (the selected text in a PDF) |
 | ⌃⌘U | Underline (the selected text in a PDF) |
-| ⇧⌘K | Inline Code (Markdown) |
-| ⌘K | Link… (Markdown) |
+| ⇧⌘K | Inline Code (Markdown, HTML pages) |
+| ⌘K | Link… (Markdown, HTML pages) |
 | ⌥⇧⌘F | Format JSON |
 | ⌘' | Jump to Error (JSON, or the next problem in code) |
 
@@ -930,6 +931,7 @@ mdview follows the macOS light or dark setting. To choose for mdview alone, use 
 | Key | Markdown | JSON |
 | --- | --- | --- |
 | ⌘F | Find bar | Search box |
+| ⌥⌘F | Find bar with the Replace row (Visual and Split) | — |
 | `/` | — | Search box |
 | Return / ⇧Return | Next / previous match | Next / previous match |
 | Esc | Close the find bar | Clear the search, or exit focus |
@@ -964,6 +966,7 @@ mdview keeps these between launches:
 - Your appearance choice, background tint, text size and Wide Layout
 - The last view (Preview, Split, Source or Visual) for Markdown, HTML and JSON
 - Whether the sidebar is shown, and whether a JSON sidebar shows Outline or Endpoints
+- **Match Case** and **Whole Words** in the page's find bar
 - Each PDF markup tool's colour, line width and text size
 - Whether the document list is hidden, and its width
 - Whether code documents show the outline
@@ -972,7 +975,7 @@ mdview keeps these between launches:
 - Whether documents load remote images and content
 - Whether the Ask AI panel is shown, and its width; the provider, each provider's model, and the effort (the API keys are in your keychain)
 - Which documents were open in each window (when macOS reopens windows)
-- Your external editor for Markdown and for JSON
+- Your external editor for Markdown, JSON, PDFs and other text files
 - Where you were in each of the last 300 files you opened (the section in Markdown, the position and focus in JSON)
 - The toolbar layout
 - Open Recent
@@ -1027,7 +1030,9 @@ Saved versions of your documents are kept by macOS with the files themselves, no
 
 **Format and Edit commands are greyed out.** Markdown formatting needs the editor to have the focus in a Markdown document, or the formatted page in Visual mode or Split view; click in the editor first (⌘2 or ⌘3 shows it). Format JSON and Minify JSON are for JSON documents.
 
-**Visual is greyed out.** Visual mode is for Markdown documents that can be edited; JSON files and this manual can't be edited visually.
+**Visual is greyed out.** Visual mode is for Markdown documents and HTML pages that can be edited; JSON files and this manual can't be edited visually, and neither can an HTML page whose tags the browser has to rearrange (the status bar says so).
+
+**The find bar has no Replace row, or Replace changes nothing.** Replacing on the page works in Visual mode and Split; in Preview, ⌥⌘F switches to Visual first. Matches in diagrams, formulas, raw HTML, front matter, footnotes and form controls are left as they are (**All** says how many): change those in Source (⌘3), where the editor's own find bar replaces in the source.
 
 **A table from a Word file came in as separate lines.** macOS's Word reader doesn't pass tables on. Save the document as HTML or RTF from Word and import that instead, or paste the table (Word puts it on the clipboard as HTML).
 
@@ -1045,7 +1050,8 @@ Saved versions of your documents are kept by macOS with the files themselves, no
 - Code colouring recognises the languages listed under [Code colouring](#code-colouring); other files are shown uncoloured. A comment or string that starts more than about 40,000 characters above the part on screen may be coloured as code.
 - Visual mode doesn't edit diagrams, formulas, raw HTML, front matter or footnotes in place (each opens its source instead), and it isn't available for JSON.
 - HTML outside the safe list (scripts, styles, frames, forms, embedded media) isn't shown in Markdown.
-- HTML pages: JavaScript never runs, so parts of a page built by scripts don't appear. A page whose tags the browser has to rearrange can't be edited visually (edit its source instead). Frames don't load other sites or files. Media, frames, form controls, SVG and maths aren't edited in place, and Find searches the source.
+- HTML pages: JavaScript never runs, so parts of a page built by scripts don't appear. A page whose tags the browser has to rearrange can't be edited visually (edit its source instead), and for now a page with a `<script>` in its body opens read-only too. Frames don't load other sites or files. Media, frames, form controls, SVG and maths aren't edited in place, and Find and Replace on the page leave their text alone.
+- Find and Replace on the page finds text within one run of formatting, so a match half in bold isn't found. Replacing in a Markdown table rewrites the whole table in mdview's style (for example `| |` becomes `|  |`).
 - PDFs: mdview adds and changes marks (annotations), not the PDF's own text, images or pages, and doesn't redact (a box drawn over text leaves the text in the file). Form filling and page editing aren't available yet.
 - JSON must be standard JSON: comments and trailing commas are reported as errors.
 - Code checks for most languages only match brackets, and the VCL checks catch common mistakes, so neither finds everything the language's own compiler would reject.

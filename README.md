@@ -1,6 +1,6 @@
 # mdview
 
-Downloads of **mdview**, a small native Mac app for reading and editing Markdown, JSON, plain text, Fastly VCL and PDFs.
+Downloads of **mdview**, a small native Mac app for reading and editing Markdown, HTML, JSON, plain text and code (including Fastly VCL), and PDFs.
 
 **[Download the latest version](https://github.com/purpleax/mdview-releases/releases/latest)**: open `mdview-<version>.dmg` and drag **mdview** onto **Applications**. It is signed and notarized by Apple, so it opens straight away.
 
