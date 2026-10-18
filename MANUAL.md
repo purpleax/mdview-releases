@@ -206,7 +206,7 @@ Prices such as $5 and $10 stay as text: a `$` only starts a formula when there i
 
 **Front matter.** A block of `key: value` lines between `---` lines at the very top of a file (as used by Jekyll, Hugo and many note apps) appears as a tidy, collapsible **Front matter** table rather than as stray text.
 
-**Images.** Images can be web addresses or paths relative to the Markdown file, such as `![Diagram](images/diagram.png)`; mdview loads relative images from the file's folder (and folders above it with `../`). Images from the web need a network connection; everything else works offline.
+**Images.** Images can be web addresses or paths relative to the Markdown file, such as `![Diagram](images/diagram.png)`. Relative images load from the file's folder and the folders inside it; when the file is in a git repository, from anywhere in that repository too (so `../images/a.png` works across a project). For a file directly in your home folder, only images next to it load. Images elsewhere on your Mac don't load. Images from the web load over `https://` only (never plain `http://`) and need a network connection; turn them off with **Load remote images and content** in **mdview › Settings…**. Everything else works offline.
 
 **HTML.** Common, harmless HTML tags render as they do on GitHub, for example:
 
@@ -456,7 +456,7 @@ HTML files (`.html`, `.htm`, `.xhtml`) open as web pages you can read and edit, 
 
 ### Showing the page
 
-The page is shown as a browser would show it, with its own styles, images, fonts and media from the file's folder (and from the web). Its **JavaScript never runs**, so nothing in a page can act on your Mac; parts that a page builds with JavaScript don't appear.
+The page is shown as a browser would show it, with its own styles, images, fonts and media from the file's folder (or, in a git repository, from anywhere in the repository) and from the web over `https://`. Files elsewhere on your Mac and anything over plain `http://` aren't loaded, and **Load remote images and content** in **mdview › Settings…** turns off everything from the web. Its **JavaScript never runs**, so nothing in a page can act on your Mac; parts that a page builds with JavaScript don't appear.
 
 - Links open in your browser, or, for a local file mdview can open, in mdview. Links to other local files show them in Finder.
 - The page stays put: a refresh tag can't replace it with another page, and frames don't load other sites or files.
@@ -769,7 +769,7 @@ The app used is, in order: the one you picked with **File › Choose External Ed
 
 ### Export as HTML
 
-**File › Export as HTML…** (Markdown documents) saves a single, self-contained web page: highlighted code, diagrams, formulas and the images from your folder are all included, and it contains no scripts. It opens in any browser without a network connection and follows the reader's light or dark setting.
+**File › Export as HTML…** (Markdown documents) saves a single, self-contained web page: highlighted code, diagrams, formulas and the images from your folder (or the document's git repository) are all included; local images from anywhere else stay as links, and so do images from the web, which a browser loads when the page is opened, and it contains no scripts. It opens in any browser without a network connection and follows the reader's light or dark setting.
 
 ### Export as PDF
 
@@ -779,7 +779,7 @@ Both exports suggest the document's own name and folder.
 
 ### Quick Look
 
-In Finder, select a Markdown or JSON file and press space to see it rendered, using the same styles as the app. The preview is read-only, with the sidebar closed and links switched off. Two things only work in the app: Mermaid diagrams show as their source, and images with relative paths don't load.
+In Finder, select a Markdown or JSON file and press space to see it rendered, using the same styles as the app. The preview is read-only, with the sidebar closed and links switched off. It never loads anything from the web, so looking at a file can't tell anyone you did. A few things only work in the app: Mermaid diagrams show as their source, and images (from your Mac or the web) don't load.
 
 ## Reading comfort
 
@@ -936,7 +936,7 @@ mdview follows the macOS light or dark setting. To choose for mdview alone, use 
 
 | Shortcut | Command |
 | --- | --- |
-| ⌘, | Settings… (Ask AI) |
+| ⌘, | Settings… (remote content, Ask AI) |
 
 ### Ask AI panel
 
@@ -958,6 +958,7 @@ mdview keeps these between launches:
 - Whether code documents show the outline
 - The indentation for Markdown, JSON, plain text and each code language
 - Whether the document type switch is always shown
+- Whether documents load remote images and content
 - Whether the Ask AI panel is shown, and its width; the provider, each provider's model, and the effort (the API keys are in your keychain)
 - Which documents were open in each window (when macOS reopens windows)
 - Your external editor for Markdown and for JSON
@@ -977,10 +978,10 @@ Saved versions of your documents are kept by macOS with the files themselves, no
 
 ## Privacy and safety
 
-- **mdview works offline.** Highlighting, diagrams and maths are built in. The app itself connects to the internet only for Ask AI, when you ask a question, and for **Check for Updates…**, when you choose it (it asks GitHub for the latest version; nothing about you or your documents is sent); otherwise the only network traffic is loading images that a document links to on the web, which happens only when the document is shown.
+- **mdview works offline.** Highlighting, diagrams and maths are built in. The app itself connects to the internet only for Ask AI, when you ask a question, and for **Check for Updates…**, when you choose it (it asks GitHub for the latest version; nothing about you or your documents is sent); otherwise the only network traffic is loading the images, styles, fonts and media a document links to on the web, over `https://` only and only when the document is shown. Turn off **Load remote images and content** in **mdview › Settings…** and documents load nothing from the web at all, so opening one can't tell a server that you read it. Quick Look previews never load anything from the web.
 - **Ask AI sends only what you ask about.** When you ask a question, the shown document and the conversation go to the provider you chose, Anthropic (api.anthropic.com) or OpenAI (api.openai.com), with your API key for it, under that provider's terms for API use; OpenAI is asked not to store it. Your keys are kept in the keychain and each is sent only to its own provider. Answers are shown without scripts, styles or remote images, and the model can change the open document only through mdview's editing tools, as undoable edits.
 - **Documents can't run code.** HTML inside Markdown is checked against a list of harmless tags; scripts, event handlers, styles, frames and forms are removed before anything is shown. HTML pages are shown with their JavaScript switched off, and their links open in your browser rather than in the page; a page can't redirect itself to another site or frame one. A link never launches an app or script: links to files mdview doesn't open show them in Finder. JSON is always shown as plain text.
-- **Local images stay local.** Images with relative paths can only be loaded from image files, relative to the document.
+- **Local files stay local.** A document can only show files from its own folder, or from the git repository it's in (a document directly in your home folder: only files next to it): images in Markdown (image files only), and images, styles, fonts and media in HTML pages. Files with more than one hard link aren't shown, since another link to them could be anywhere. **Export as HTML** embeds only those images; it keeps images from the web as links, which a browser loads when the exported page is opened. Links are different: clicking one can still open another file in mdview or show it in Finder, wherever it is (see [Links](#links)).
 - **Your files are only changed when you edit them.** Opening and reading a file (including a PDF) never modifies it; a PDF is rewritten only after you mark it up.
 
 ## Troubleshooting
@@ -993,7 +994,7 @@ Saved versions of your documents are kept by macOS with the files themselves, no
 
 **"looks like a binary file, not text".** The file contains binary data, so mdview won't open it. If it's text in an encoding other than UTF-8, convert it to UTF-8 first.
 
-**An image doesn't appear.** Check that the path is relative to the Markdown file and that the file is an image (PNG, JPEG, GIF, WebP, SVG, BMP, ICO, TIFF, HEIC or AVIF). Images from the web need a network connection. In Quick Look, relative images never load; open the file in mdview.
+**An image doesn't appear.** Check that the path is relative to the Markdown file and that the file is an image (PNG, JPEG, GIF, WebP, SVG, BMP, ICO, TIFF, HEIC or AVIF). Relative images must be in the file's folder (or its git repository), and can't be files with more than one hard link. Images from the web need a network connection and an `https://` address, and **Load remote images and content** must be on in Settings. In Quick Look, images never load; open the file in mdview.
 
 **A diagram shows an error.** The message above the diagram's source comes from Mermaid and usually points to the line with the mistake.
 
