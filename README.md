@@ -8,6 +8,6 @@ Requires macOS 14 or later on an Apple Silicon Mac.
 
 **[User manual](MANUAL.md)**: every feature, keyboard shortcuts, settings and troubleshooting. The same manual is in the app under **Help › mdview Manual**.
 
-To update, choose **mdview › Check for Updates…** in the app, or download the new version and replace the old one. Your settings are kept.
+To update, choose **mdview › Check for Updates…** in the app. From 3.16.0, **Install and Relaunch** downloads the new version, checks it and installs it for you; earlier versions open the download in your browser. Your settings are kept.
 
 Each [release](https://github.com/purpleax/mdview-releases/releases) lists what's new in that version.

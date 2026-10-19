@@ -1046,6 +1046,10 @@ Saved versions of your documents are kept by macOS with the files themselves, no
 
 **A highlight covers the wrong words, or Export Notes quotes the wrong words.** Some PDFs (often ones made by a web browser) describe where their text sits imprecisely. Highlights made in mdview keep the words you selected; for highlights made in other apps, mdview reads the words under the highlight, which in such PDFs can be off by a word or a line.
 
+**Check for Updates offers Download instead of Install and Relaunch.** mdview can only replace itself when it's in a folder you can change, such as Applications, and isn't running from the disk image. Move it to Applications, open it from there and check again, or choose **Download** and replace it by hand. See [Updating](#updating).
+
+**Install and Relaunch says the update isn't signed by mdview's developer.** mdview checked the download and refused it, so nothing was changed. This can also happen when your Mac can't reach Apple to check the signature, for example on a restricted network. Try again later, or choose **Download** and install it from the disk image.
+
 **This manual can't be edited.** The manual is part of the app, so it opens read-only. To keep an editable copy, choose **File › Duplicate**.
 
 ## Limits
