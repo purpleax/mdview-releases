@@ -2,7 +2,7 @@
 
 mdview is a small native Mac app for reading and editing Markdown, HTML and JSON files, a plain text editor for everything else, and a PDF reader where you can highlight and annotate. Markdown appears as a clean, readable document; HTML as the web page it describes; JSON as a collapsible, colour-coded tree that stays fast on multi-megabyte files. Each can be edited in a native Mac text editor next to a live preview, and Markdown and HTML can also be edited visually, like a word-processor document, with mdview writing the source for you.
 
-mdview works offline, follows the macOS light and dark appearance, and needs macOS 14 or later on an Apple Silicon Mac. If you add a Claude or OpenAI API key, you can also ask an AI about the open document and have it make changes for you (see [Asking AI](#asking-ai)). Apart from Ask AI, **Check for Updates…** and images a document links to on the web (which you can turn off), nothing goes online; see [Privacy and safety](#privacy-and-safety).
+mdview works offline, follows the macOS light and dark appearance, and needs macOS 14 or later on an Apple Silicon Mac. If you add a Claude or OpenAI API key, you can also ask an AI about the open document and have it make changes for you, and on a Mac with Apple Intelligence you can ask Apple's on-device model, which needs no key and sends nothing anywhere (see [Asking AI](#asking-ai)). Apart from Ask AI, **Check for Updates…** and images a document links to on the web (which you can turn off), nothing goes online; see [Privacy and safety](#privacy-and-safety).
 
 > [!TIP]
 > This manual is a Markdown file shown in mdview itself, so everything it describes works here too. Use the contents sidebar on the left (⌃⌘S shows or hides it), or press ⌘F to search.
@@ -680,9 +680,9 @@ The sidebar's **Notes** tab lists every highlight, note, text box and shape, pag
 
 ## Asking AI
 
-Ask AI puts an AI model in a panel beside the document: **Claude**, from Anthropic, or **GPT**, from OpenAI. Ask it about what you're reading (summaries, explanations, what a JSON file contains, where a PDF says something) or ask it to change the document, and it makes the changes in the editor for you.
+Ask AI puts an AI model in a panel beside the document: **Claude**, from Anthropic, **GPT**, from OpenAI, or **Apple AI**, Apple's on-device model. Ask it about what you're reading (summaries, explanations, what a JSON file contains, where a PDF says something) or ask it to change the document; Claude and GPT make the changes in the editor for you.
 
-It uses your own API key, so usage is charged to your Anthropic or OpenAI account. Nothing is sent until you ask a question.
+Claude and GPT use your own API key, so usage is charged to your Anthropic or OpenAI account, and nothing is sent until you ask a question. Apple AI runs on your Mac: it is free, nothing leaves your Mac, and it needs no key, but it is a much smaller model that reads only the text you select, or a short document (see [Apple AI, on this Mac](#apple-ai-on-this-mac)).
 
 ### Setting it up
 
@@ -691,16 +691,19 @@ It uses your own API key, so usage is charged to your Anthropic or OpenAI accoun
 
 Each provider keeps its own key, so you can save both and switch between them with **Provider**. Keys are kept in your Mac's keychain, not in mdview's settings, and each is only ever sent to its own provider. **Remove** deletes the shown provider's key.
 
+For Apple AI there is nothing to set up: on a Mac that can run it, it is the provider until you save a key for Claude or GPT or choose another **Provider**, and you can choose **Apple AI (on device)** again at any time. On a Mac that can't run it, the choice is greyed out and says why: it needs macOS 26.4 or later and Apple Intelligence turned on in System Settings.
+
 In Settings you can also choose:
 
 - **Model**, for each provider:
   - Claude: **Claude Opus 5.5** (the default, the most capable), **Claude Sonnet 5.5** (faster, half the price) or **Claude Haiku 5.5** (fastest and much cheaper, good for quick questions).
   - GPT: **GPT-6 Astra** (the default, the most capable), **GPT-6.1 Sol** (nearly as capable for a fifth of the price) or **GPT-6 Luna** (fastest and much cheaper).
-- **Effort:** how much the model thinks before answering. **Medium** suits most questions; **High** can help with hard ones but is slower and costs more; **Low** is quickest.
+  - Apple AI has one model, the one built into macOS.
+- **Effort** (Claude and GPT): how much the model thinks before answering. **Medium** suits most questions; **High** can help with hard ones but is slower and costs more; **Low** is quickest.
 
 ### Asking a question
 
-**View › Show Ask AI** (⌥⌘K), or the speech-bubbles button in the toolbar, opens the panel on the right of the window. The model in use is shown at the top. Type a question and press Return (⇧Return starts a new line), or click one of the suggested questions. The first time for each provider, mdview asks you to confirm that documents are sent to it.
+**View › Show Ask AI** (⌥⌘K), or the speech-bubbles button in the toolbar, opens the panel on the right of the window. The model in use is shown at the top. Type a question and press Return (⇧Return starts a new line), or click one of the suggested questions. The first time for Claude or GPT, mdview asks you to confirm that documents are sent to it.
 
 The answer appears as it's written, formatted like a Markdown document. While it's being written, the send button becomes a stop button (or press Esc). Under each answer:
 
@@ -711,7 +714,18 @@ The answer appears as it's written, formatted like a Markdown document. While it
 
 Follow-up questions continue the conversation, and you can switch provider or model between questions. Each document has its own conversation, kept while the document is open; the panel shows the one for the document on screen. The **New Conversation** button (top of the panel) starts again.
 
-**View › Ask AI About Selection** (⌥⇧⌘K) opens the panel with the text you've selected (in the editor, the preview or a PDF) quoted in the question box, ready for you to add your question.
+**View › Ask AI About Selection** (⌥⇧⌘K), or the quotation-marks button at the top of the panel, opens the panel with the text you've selected (in the editor, the preview or a PDF) quoted in the question box, ready for you to add your question. With Apple AI, which reads the selection itself, the question box just says what is selected.
+
+### Apple AI, on this Mac
+
+Apple AI is the model built into macOS for Apple Intelligence, and it answers on your Mac: nothing is sent anywhere, there is nothing to pay, and it works offline. It needs macOS 26.4 or later with Apple Intelligence turned on (**System Settings › Apple Intelligence & Siri**).
+
+It is a small model, so it works differently from Claude and GPT:
+
+- **It reads the selection, or a short document.** Select the part you want to ask about (in the editor, the preview or a PDF), click the quotation-marks button at the top of the panel (or **View › Ask AI About Selection**, ⌥⇧⌘K) and ask. With nothing selected it reads the whole document, if it fits: about 4,000 words at a time, the conversation included. If the document or selection is too long, mdview says so before asking; select less.
+- **It answers in text, and doesn't change the document itself.** Ask for a change (*"fix the spelling"*, *"make this shorter"*, *"translate this into French"*) and the answer is the new text; **Insert** then replaces the selected text with it, as one step in **Edit › Undo**. (Given editing tools, the small model used them for plain questions too, so it doesn't get them.)
+- **It knows less.** Summaries, rewording, simple questions and translations work well; for anything that needs the whole of a long document, or careful reasoning, use Claude or GPT.
+- Follow-up questions continue the conversation; when it grows too long for the model, the oldest questions are left out.
 
 ### Having the AI change the document
 
@@ -724,11 +738,11 @@ Ask for any change in plain words (*"fix the spelling"*, *"rewrite the introduct
 - When the model writes code into a plain-text document (*"write a Python script that…"*), it also sets the colouring language, so the script is coloured straight away and Save suggests a name like `Untitled.py`.
 - With code open, the model is told the language and its usual conventions (PEP 8 for Python, gofmt for Go, Fastly's rules for VCL and so on), so its answers and edits match.
 
-PDFs and read-only documents (such as this manual) can't be changed; the model gives the new text in its answer instead.
+PDFs and read-only documents (such as this manual) can't be changed; the model gives the new text in its answer instead. Apple AI always answers this way (see above).
 
 ### What is sent
 
-When you ask a question, mdview sends, to the chosen provider only:
+With Apple AI, nothing is sent anywhere: the model runs on your Mac. With Claude or GPT, when you ask a question, mdview sends, to the chosen provider only:
 
 - the whole document as it is in the editor, including changes you haven't saved (a PDF is sent as the PDF itself, so the model sees its layout, tables and images), and its name;
 - your question and the conversation so far.
@@ -739,7 +753,7 @@ If you change the document between questions, the model sees the new version wit
 
 ### Costs
 
-Charges depend on the provider, the model and the size of the document. As a guide, for a 10,000-word document (about 15,000 tokens):
+Apple AI is free. For Claude and GPT, charges depend on the model and the size of the document. As a guide, for a 10,000-word document (about 15,000 tokens):
 
 | Model | First question | Each follow-up |
 | --- | --- | --- |
@@ -757,7 +771,8 @@ Before sending a very large document (more than about 100,000 tokens, roughly 75
 - **"Your OpenAI account has run out of credit"**: add credit in the OpenAI dashboard.
 - **"You're over your API rate limit"** or **"… is overloaded"**: wait a moment and click **Try Again**.
 - **"Couldn't reach Anthropic"** (or OpenAI): check your internet connection.
-- **"… declined to answer"**: occasionally a model's safety checks decline a request, sometimes mistakenly. Rephrasing usually helps; with Claude Opus or Sonnet, mdview automatically retries a declined request on another Claude model first.
+- **"… declined to answer"**: occasionally a model's safety checks decline a request, sometimes mistakenly. Rephrasing usually helps; with Claude Opus or Sonnet, mdview automatically retries a declined request on another Claude model first. Apple AI's checks are stricter than the others'.
+- **"The selection is too long for Apple AI"** (or the document): select less text. **"Apple AI isn't available"**: the message says what to do (update macOS, turn on Apple Intelligence, or wait for its model to finish downloading).
 
 ## Working with files
 
@@ -997,7 +1012,7 @@ Saved versions of your documents are kept by macOS with the files themselves, no
 ## Privacy and safety
 
 - **mdview works offline.** Highlighting, diagrams and maths are built in. The app itself connects to the internet only for Ask AI, when you ask a question, and for **Check for Updates…**, when you choose it (it asks GitHub for the latest version and, if you choose **Install and Relaunch**, downloads it from GitHub; nothing about you or your documents is sent, and only a version signed by mdview's developer and notarized by Apple is installed); otherwise the only network traffic is loading the images, styles, fonts and media a document links to on the web, over `https://` only and only when the document is shown. Turn off **Load remote images and content** in **mdview › Settings…** and documents load nothing from the web at all, so opening one can't tell a server that you read it. Quick Look previews never load anything from the web.
-- **Ask AI sends only what you ask about.** When you ask a question, the shown document and the conversation go to the provider you chose, Anthropic (api.anthropic.com) or OpenAI (api.openai.com), with your API key for it, under that provider's terms for API use; OpenAI is asked not to store it. Your keys are kept in the keychain and each is sent only to its own provider. Answers are shown without scripts, styles or remote images, and the model can change the open document only through mdview's editing tools, as undoable edits.
+- **Ask AI sends only what you ask about.** When you ask a question, the shown document (with Apple AI, only the selected text or a short document) and the conversation go to the provider you chose, Anthropic (api.anthropic.com) or OpenAI (api.openai.com), with your API key for it, under that provider's terms for API use; OpenAI is asked not to store it. Apple AI runs on your Mac and sends nothing anywhere. Your keys are kept in the keychain and each is sent only to its own provider. Answers are shown without scripts, styles or remote images, and the model can change the open document only through mdview's editing tools, as undoable edits (Apple AI not at all).
 - **Documents can't run code.** HTML inside Markdown is checked against a list of harmless tags; scripts, event handlers, styles, frames and forms are removed before anything is shown. HTML pages are shown with their JavaScript switched off, and their links open in your browser rather than in the page; a page can't redirect itself to another site or frame one. A link never launches an app or script: links to files mdview doesn't open show them in Finder. JSON is always shown as plain text.
 - **Local files stay local.** A document can only show files from its own folder, or from the git repository it's in (a document directly in your home folder: only files next to it): images in Markdown (image files only), and images, styles, fonts and media in HTML pages. Files with more than one hard link aren't shown, since another link to them could be anywhere. **Export as HTML** embeds only those images; it keeps images from the web as links, which a browser loads when the exported page is opened. Links are different: clicking one can still open another file in mdview or show it in Finder, wherever it is (see [Links](#links)).
 - **Your files are only changed when you edit them.** Opening and reading a file (including a PDF) never modifies it; a PDF is rewritten only after you mark it up.
@@ -1063,4 +1078,4 @@ Saved versions of your documents are kept by macOS with the files themselves, no
 - PDFs: mdview adds and changes marks (annotations), not the PDF's own text, images or pages, and doesn't redact (a box drawn over text leaves the text in the file). Form filling and page editing aren't available yet.
 - JSON must be standard JSON: comments and trailing commas are reported as errors.
 - Code checks for most languages only match brackets, and the VCL checks catch common mistakes, so neither finds everything the language's own compiler would reject.
-- mdview runs on macOS 14 or later on Apple Silicon Macs.
+- mdview runs on macOS 14 or later on Apple Silicon Macs. Apple AI in Ask AI needs macOS 26.4 or later with Apple Intelligence turned on.
